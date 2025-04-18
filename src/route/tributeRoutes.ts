@@ -1,11 +1,12 @@
-const express = require("express");
+import express, { Request, Response } from "express";
+import TributeModel from "../model/Tribute";
+
 const router = express.Router();
-const Tribute = require("../model/Tribute");
 
 // GET all tributes
-router.get("/", async (req, res) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
-    const tributes = await Tribute.find().sort({ date: -1 });
+    const tributes = await TributeModel.find().sort({ date: -1 });
     res.json(tributes);
   } catch (error) {
     console.error("Error fetching tributes:", error);
@@ -14,19 +15,19 @@ router.get("/", async (req, res) => {
 });
 
 // POST a new tribute
-router.post("/", async (req, res) => {
+router.post("/", async (req: Request, res: Response) => {
   try {
     const { name, relationship, message, date } = req.body;
 
     // Validate required fields
     if (!name || !relationship || !message) {
-      return res
+      res
         .status(400)
         .json({ message: "Please provide all required fields" });
     }
 
     // Create new tribute
-    const newTribute = new Tribute({
+    const newTribute = new TributeModel({
       name,
       relationship,
       message,
@@ -43,12 +44,12 @@ router.post("/", async (req, res) => {
 });
 
 // GET a single tribute by ID
-router.get("/:id", async (req, res) => {
+router.get("/:id", async (req: Request, res: Response) => {
   try {
-    const tribute = await Tribute.findById(req.params.id);
+    const tribute = await TributeModel.findById(req.params.id);
 
     if (!tribute) {
-      return res.status(404).json({ message: "Tribute not found" });
+      res.status(404).json({ message: "Tribute not found" });
     }
 
     res.json(tribute);
@@ -58,4 +59,4 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

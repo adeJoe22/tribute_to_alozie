@@ -1,8 +1,8 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const tributeRoutes = require("./route/tributeRoutes");
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
+import tributeRoutes from "./route/tributeRoutes";
 
 // Load environment variables
 dotenv.config();
@@ -17,7 +17,7 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGODB_CLOUD)
+  .connect(process.env.MONGODB_CLOUD!)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 

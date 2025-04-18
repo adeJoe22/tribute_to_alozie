@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const tributeSchema = new mongoose.Schema(
   {
@@ -27,4 +27,10 @@ const tributeSchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model("Tribute", tributeSchema, "Tribute");
+const TributeModel = mongoose.model(
+  "Tribute",
+  tributeSchema,
+  "Tribute",
+);
+
+export default TributeModel;
